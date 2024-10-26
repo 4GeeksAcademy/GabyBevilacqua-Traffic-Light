@@ -6,20 +6,20 @@ const TrafficLight = () => {
     const [selectedLight, setSelectedLight] = useState(null);
     const [showViolet, setShowViolet] = useState(false)
 
-    // el funcionamiento del boton que basicamente es un loop infinito
+    // el funcionamiento del boton que basicamente es un loop infinito, version super resumida
     const toggleLight = () => {
-        if (selectedLight === null) {
-            setSelectedLight('red');
-        } else if (selectedLight === 'red') {
-            setSelectedLight('yellow');
-        } else if (selectedLight === 'yellow') {
-            setSelectedLight('green');
-        } else if (selectedLight === 'green' && showViolet) {
-            setSelectedLight('violet');
-        } else { setSelectedLight('red')}
-console.log(selectedLight);
+        const transitions = {
+            null: 'red',
+            red: 'yellow',
+            yellow: 'green',
+            green: showViolet ? 'violet' : 'red',
+            violet: 'red'
+        };
+        
+        setSelectedLight(transitions[selectedLight]);
     };
- /*
+ /*     Primera version del boton de alternancia de color para entender el proceso del codigo
+
     const toggleLight = () => {
         if (selectedLight === null) {
             setSelectedLight('red');
@@ -69,13 +69,12 @@ console.log(selectedLight);
                     Cambiar luz
                 </button>
                 <button className="btn btn-secondary mt-3 ms-2 border border-white" onClick={colorExtra}>
-                    Color extra
+                    Color Violeta
                 </button>
             </div>
         </>
     );
 };
-
 
 
 export default TrafficLight;
